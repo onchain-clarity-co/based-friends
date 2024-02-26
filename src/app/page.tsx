@@ -1,9 +1,7 @@
-import Image from "next/image";
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <div>
-      <h1>Onchain Clarity</h1>
-    </div>
-  );
+    <main className="">
+      <p>page body</p>
+    </main>
+  )
 }
