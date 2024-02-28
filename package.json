@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@farcaster/auth-kit": "^0.2.1",
-    "dotenv": "^16.4.5",
     "next": "14.1.0",
     "next-auth": "^4.24.6",
     "react": "^18",
