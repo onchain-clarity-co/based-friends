@@ -35,5 +35,5 @@ interface Image {
 }
 
 interface TokenTransfer {
-    blockTimestamp: string
+    blockTimestamp: string | null
 }

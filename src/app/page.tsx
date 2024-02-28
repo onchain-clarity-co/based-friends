@@ -1,6 +1,22 @@
 import UserCard from "@/components/UserCard";
+import { fetchAirstackData } from "@/pages/api/friends";
+import { DOMAIN } from "@/utils/config";
 
-export default function HomePage() {
+
+export default async function HomePage() {
+
+  const airstackData = await fetchAirstackData(347)
+  const userCards = airstackData.map((user, i) => {
+    return (
+      <UserCard 
+        key={i}
+        pfpUrl={user.avatar} 
+        username={user.username} 
+        castTime={user.latestFarcasterAction} 
+        onchainTime={user.latestBaseAction} />
+    )
+  })
+
   return (
     <main className="flex">
       {/* side bar */}
@@ -27,11 +43,7 @@ export default function HomePage() {
           <h1>search?</h1>
         </section>
         <section className="flex flex-wrap">
-          <UserCard pfpUrl="" username="ncale.eth" castTime="01:23:34" onchainTime="01:23:34" />
-          <UserCard pfpUrl="" username="limes.eth" castTime="01:23:34" onchainTime="01:23:34" />
-          <UserCard pfpUrl="" username="account.eth" castTime="01:23:34" onchainTime="01:23:34" />
-          <UserCard pfpUrl="" username="rowlf.eth" castTime="01:23:34" onchainTime="01:23:34" />
-          <UserCard pfpUrl="" username="topdegen.eth" castTime="01:23:34" onchainTime="01:23:34" />
+          {userCards}
         </section>
       </div>
     </main>

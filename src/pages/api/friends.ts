@@ -12,7 +12,7 @@ export default async function GET(req: NextApiRequest, res: NextApiResponse) {
     return res.status(400).json({error: 'No FID'})
 }
 
-async function fetchAirstackData(fid: number) {
+export async function fetchAirstackData(fid: number) {
     // Format GraphQL query
     const query = `
       {
@@ -53,11 +53,13 @@ async function fetchAirstackData(fid: number) {
     const airstackData = await res.json() as AirstackResponse;
 
     const formattedData: FormattedAirstackData[] = airstackData.data.SocialFollowings.Following.map((user) => {
+        const latestBaseActionTimestamp = user.followingAddress.tokenTransfers[0]?.blockTimestamp
+
         return {
             username: user.followingAddress.socials[0].profileName,
             avatar: user.followingAddress.socials[0].profileImageContentValue.image?.medium,
             latestFarcasterAction: new Date(user.followingAddress.socials[0].updatedAt),
-            latestBaseAction: new Date(user.followingAddress.tokenTransfers[0].blockTimestamp),
+            latestBaseAction: latestBaseActionTimestamp ? new Date(latestBaseActionTimestamp) : null,
         }
     })
 
@@ -68,5 +70,5 @@ type FormattedAirstackData = {
     username: string,
     avatar: string | undefined,
     latestFarcasterAction: Date,
-    latestBaseAction: Date,
+    latestBaseAction: Date | null,
 }
