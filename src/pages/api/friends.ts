@@ -66,7 +66,7 @@ export async function fetchAirstackData(fid: number) {
     return formattedData;
 }
 
-type FormattedAirstackData = {
+export type FormattedAirstackData = {
     username: string,
     avatar: string | undefined,
     latestFarcasterAction: Date,

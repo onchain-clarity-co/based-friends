@@ -8,7 +8,7 @@ export default function UserCard( props: {
 	} ) {
 
 	function createCastMsg() {
-		const milliseconds = Date.now() - props.castTime.getTime()
+		const milliseconds = Date.now() - new Date(props.castTime).getTime()
 		if ((milliseconds / (1000*60)) < 60) {
 			const mins = Math.round(milliseconds / (1000*60))
 			return `Casted ${mins} minute${(mins==1) ? '' : 's'} ago`
@@ -29,7 +29,7 @@ export default function UserCard( props: {
 
 	function createOnchainMsg() {
 		if (!props.onchainTime) return 
-		const milliseconds = Date.now() - props.onchainTime.getTime()
+		const milliseconds = Date.now() - new Date(props.onchainTime).getTime()
 		if ((milliseconds / (1000*60)) < 60) {
 			const mins = Math.round(milliseconds / (1000*60))
 			return `Onchain ${mins} minute${(mins==1) ? '' : 's'} ago`
