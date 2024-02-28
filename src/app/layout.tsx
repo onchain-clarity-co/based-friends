@@ -12,15 +12,15 @@ import Footer from "@/components/Footer";
 const font = Roboto({ subsets: ["latin"], weight: '400' });
 
 export const metadata: Metadata = {
-  title: "Onchain Clarity",
-  description: "Discover what your social circle is doing onchain.",
+  title: "Based Friends",
+  description: "Look who is online and onchain.",
 };
 
 const config = {
   relay: 'https://relay.farcaster.xyz',
   rpcUrl: 'https://mainnet.optimism.io',
-  domain: 'localhost:4000',
-  siweUri: 'http://localhost:4000/',
+  domain: 'localhost:3000',
+  siweUri: 'http://localhost:3000/',
 };
 
 export default async function RootLayout({
@@ -33,7 +33,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${font.className} box-border flex flex-col`} style={{backgroundColor: '#181818'}}>
+      <body className={`${font.className} box-border flex flex-col`} style={{backgroundColor: '#313131'}}>
         <SessionProvider session={session}><AuthKitProvider config={config}>
 
           {/* Header */}
