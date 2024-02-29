@@ -2,7 +2,7 @@ import AuthButton from "@/components/AuthButton";
 
 export default async function Header() {
 	return (
-		<header className="fixed top-0 z-50 w-full h-20 px-20 flex flex-col justify-end bg-inherit">
+		<header className="fixed top-0 z-50 w-full h-20 px-20 flex flex-col justify-end" style={{backgroundColor: '#313131'}}>
 			<div className="flex justify-between items-end pb-1">
 				<h1 className="text-5xl">
 					<span style={{color: '#2954ED'}}>Based</span> <span className="text-white">Friends</span>

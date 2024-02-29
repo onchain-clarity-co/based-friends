@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { IconContext } from "react-icons";
 import { LuCircle } from "react-icons/lu";
+import { LuInfo } from "react-icons/lu";
+import { Tooltip } from "@nextui-org/react";
 
 export default function UserCard( props: { 
 		pfpUrl: string | undefined, 
@@ -52,9 +54,28 @@ export default function UserCard( props: {
 	}
 	const onchainMsg = props.onchainTime ? createOnchainMsg(Date.now() - new Date(props.onchainTime).getTime()) : undefined
 
+	const castTooltip = (
+		<div>
+			<span className="block text-xs leading-none">{castMsg}</span>
+		</div>
+	)
+	const baseTooltip = (
+		<div>
+			<span className="block text-xs leading-none">{onchainMsg}</span>
+		</div>
+	)
+	const infoTooltip = (
+		<div>
+			<span className="block text-xs leading-none">fid: {'250'}</span>
+			<span className="block text-xs leading-none">{'250'} likes</span>
+			<span className="block text-xs leading-none">{'12'} recasts</span>
+		</div>
+	) // placeholder data
+
 	return (
-		<div className="bg-gray-200 rounded-md truncate">
-			<div className="flex p-2 items-center">
+		<div className="bg-gray-200 rounded-md p-1.5 truncate flex justify-between">
+			{/* profile */}
+			<div className="flex items-center">
 				{/* pfp */}
 				{props.pfpUrl ? (
 					<Image 
@@ -67,25 +88,36 @@ export default function UserCard( props: {
 				) : (
 					<></>
 				)}
-				{/* user info */}
-				<div className="pl-2">
+				{/* profile info */}
+				<div className="flex flex-col ml-1">
+					{/* display name */}
+					<h3 className="text-md leading-none">{'Display Name'}</h3>
 					{/* username */}
-					<h3 className="text-sm font-bold leading-none">{props.username}</h3>
+					<h3 className="text-sm leading-none">{props.username}</h3>
 					{/* online / active bar */}
 					<div className="flex items-center mb-0.5">
-						<IconContext.Provider value={{color: 'green', size:'10px'}}>
-							<LuCircle />
+						<IconContext.Provider value={{color: 'green', size:'8px'}}>
+							<Tooltip content={castTooltip} size="sm" radius="sm" closeDelay={10} offset={0} placement="bottom-start">
+								<span className=""><LuCircle /></span>
+							</Tooltip>
 						</IconContext.Provider>
 						<span className="text-xs leading-none ml-0.5 mr-1">online</span>
-						<IconContext.Provider value={{color: 'green', size:'10px'}}>
-							<LuCircle />
+						<IconContext.Provider value={{color: 'blue', size:'8px'}}>
+							<Tooltip content={baseTooltip} size="sm" radius="sm" closeDelay={10} offset={0} placement="bottom-start">
+								<span className=""><LuCircle /></span>
+							</Tooltip>
 						</IconContext.Provider>
 						<span className="text-xs leading-none ml-0.5">active onchain</span>
 					</div>
-					{/* cast / onchain recency */}
-					<span className="block text-xs leading-none">{castMsg}</span>
-					<span className="block text-xs leading-none">{onchainMsg}</span>
 				</div>
+			</div>
+			{/* user stats */}
+			<div className="flex flex-col">
+				<IconContext.Provider value={{size:'12px'}}>
+					<Tooltip content={infoTooltip} size="sm" radius="sm" closeDelay={10} offset={3} placement="right">
+						<span><LuInfo /></span>
+					</Tooltip>
+				</IconContext.Provider>
 			</div>
 		</div>
 	)
