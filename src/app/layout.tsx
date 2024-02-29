@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider";
 import AuthKitProvider from '@/components/AuthKitProvider';
-
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { DOMAIN } from "@/utils/config";
 
 const font = Roboto({ subsets: ["latin"], weight: '400' });
 
@@ -19,8 +18,8 @@ export const metadata: Metadata = {
 const config = {
   relay: 'https://relay.farcaster.xyz',
   rpcUrl: 'https://mainnet.optimism.io',
-  domain: 'localhost:3000',
-  siweUri: 'http://localhost:3000/',
+  domain: DOMAIN,
+  siweUri: `http://${DOMAIN}/`,
 };
 
 export default async function RootLayout({
@@ -33,7 +32,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${font.className} box-border flex flex-col`} style={{backgroundColor: '#313131'}}>
+      <body className={`${font.className} box-border pt-20 flex flex-col`} style={{backgroundColor: '#313131'}}>
         <SessionProvider session={session}><AuthKitProvider config={config}>
 
           {/* Header */}
@@ -44,6 +43,7 @@ export default async function RootLayout({
 
           {/* Footer */}
           <Footer />
+
         </AuthKitProvider></SessionProvider>
       </body>
     </html>

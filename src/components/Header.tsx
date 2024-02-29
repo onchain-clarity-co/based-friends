@@ -2,17 +2,16 @@ import AuthButton from "@/components/AuthButton";
 
 export default async function Header() {
 	return (
-		<>
-			<header className="px-1 py-4 flex items-center justify-between content-center">
-				<h1 className="text-6xl" style={{marginTop: '20px', marginLeft: '100px'}}>
-					<span style={{color: '#2954ED'}}>Based</span> <span style={{color: '#FFF'}}>Friends</span>
+		<header className="fixed top-0 z-50 w-full h-20 px-20 flex flex-col justify-end bg-inherit">
+			<div className="flex justify-between items-end pb-1">
+				<h1 className="text-5xl">
+					<span style={{color: '#2954ED'}}>Based</span> <span className="text-white">Friends</span>
 				</h1>
-				<div style={{marginRight: '100px', marginTop: '20px'}}>
+				<div className="">
 					<AuthButton/>
 				</div>
-			</header>
-			<hr style={{width: '90%', margin: '0 auto'}}/>
-		</>
+			</div>
+			<hr className="w-full mb-2"/>
+		</header>
 	)
 }            
-           
