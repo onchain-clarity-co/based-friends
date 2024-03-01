@@ -17,12 +17,11 @@ export async function fetchAirstackData(fid: number) {
   const query = `
     {
       SocialFollowings(
-        input: {filter: {identity: {_eq: "fc_fid:${fid}"}, dappName: {_eq: farcaster}}, blockchain: ALL, limit: 50}
+        input: {filter: {identity: {_eq: "fc_fid:${fid}"}, dappName: {_eq: farcaster}}, blockchain: ALL}
       ) {
         Following {
           followingAddress {
             socials(input: {filter: {dappName: {_eq: farcaster}}}) {
-              dappName
               profileName
               profileImageContentValue{
                 image{
