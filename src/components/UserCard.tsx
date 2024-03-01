@@ -61,7 +61,7 @@ export default function UserCard( props: {
 	let onchainMsg: string = 'hmm... no base txns found'
 	if (props.onchainTime) {
 		const onchainMillisDiff = Date.now() - new Date(props.onchainTime).getTime()
-		isActiveOnchain = ((onchainMillisDiff) / (1000*60*60*24)) < 24
+		isActiveOnchain = ((onchainMillisDiff) / (1000*60*60)) < 24
 		onchainMsg = createOnchainMsg(onchainMillisDiff)
 	} 
 
