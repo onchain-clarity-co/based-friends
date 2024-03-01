@@ -31,7 +31,7 @@ export default function SideBar({
 				/>
 			</div>
 
-			<hr className="w-full mb-2"/>
+			<hr className="w-full mb-1.5"/>
 
 			{/* Filters */}
 			<ul className="">
@@ -59,9 +59,26 @@ export default function SideBar({
 						{"Doesn't Follow Back"}
 					</button>
 				</li> 
+				<li className="text-sm leading-none mb-1">-</li>
+				<li className="text-sm leading-none mb-1 flex items-center">
+					<LuMessagesSquare />
+					<button 
+						type="button" 
+						className="cursor-pointer hover:text-lightblue active:text-darkblue ml-1">
+						Currently online
+					</button>
+				</li> 
+				<li className="text-sm leading-none mb-1 flex items-center">
+					<LuLayers />
+					<button 
+						type="button" 
+						className="cursor-pointer hover:text-lightblue active:text-darkblue ml-1">
+						Active onchain
+					</button>
+				</li>
 			</ul>
 
-			<hr className="w-full mb-2"/>
+			<hr className="w-full my-1.5"/>
 
 			{/* Sorts */}
 			<ul className="flex mb-1.5">
@@ -79,14 +96,14 @@ export default function SideBar({
 				</li>
 			</ul>
 			<ul className="">
-				<li className="text-sm leading-none mb-1 flex items-center">
+				{/* <li className="text-sm leading-none mb-1 flex items-center">
 					<LuHeart />
 					<button type="button" className="ml-1">Mutual Likes</button>
 				</li>
 				<li className="text-sm leading-none mb-1 flex items-center">
 					<LuRefreshCcw />
 					<button type="button" className="ml-1">Mutual Recasts</button>
-				</li>
+				</li> */}
 				<li className="text-sm leading-none mb-1 flex items-center">
 					<LuMessagesSquare />
 					<button type="button" className="ml-1">Recently Casted</button>
