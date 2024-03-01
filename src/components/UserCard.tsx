@@ -1,33 +1,38 @@
 import Image from "next/image";
 import { IconContext } from "react-icons";
 import { LuCircle } from "react-icons/lu";
+import { LuMessagesSquare } from "react-icons/lu";
 import { LuInfo } from "react-icons/lu";
 import { Tooltip } from "@nextui-org/react";
 
 export default function UserCard( props: { 
-		pfpUrl: string | undefined, 
-		username: string, 
-		castTime: Date, 
-		onchainTime: Date | undefined 
+		displayName: string
+		username: string
+		fid: string
+		pfpUrl: string | undefined
+		castTime: Date
+		followsMe: boolean
+		onchainTime: Date | undefined
+		onchainHash: string | undefined
 	} ) {
 
 	function createCastMsg(milliseconds: number) {
 		if ((milliseconds / (1000)) < 60) {
-			return `Casted seconds ago`
+			return `seconds ago`
 		} else if ((milliseconds / (1000*60)) < 60) {
 			const mins = Math.round(milliseconds / (1000*60))
-			return `Casted ${mins} min${(mins==1) ? '' : 's'} ago`
+			return `${mins} min${(mins==1) ? '' : 's'} ago`
 		} else if ((milliseconds / (1000*60*60)) < 24) {
 			const hours = Math.round(milliseconds / (1000*60*60))
-			return `Casted ${hours} hr${(hours==1) ? '' : 's'} ago`
+			return `${hours} hr${(hours==1) ? '' : 's'} ago`
 		} else if ((milliseconds / (1000*60*60*24)) < 30) {
 			const days = Math.round(milliseconds / (1000*60*60*24))
-			return `Casted ${days} day${(days==1) ? '' : 's'} ago`
+			return `${days} day${(days==1) ? '' : 's'} ago`
 		} else if ((milliseconds / (1000*60*60*24*30)) < 6) {
 			const months = Math.round(milliseconds / (1000*60*60*24*30))
-			return `Casted ${months} mo${(months==1) ? '' : 's'} ago`
+			return `${months} mo${(months==1) ? '' : 's'} ago`
 		} else {
-			return 'Casted... a long time ago'
+			return '... a long time ago'
 		}
 	}
 	const castMillisDiff = Date.now() - new Date(props.castTime).getTime()
@@ -35,24 +40,30 @@ export default function UserCard( props: {
 
 	function createOnchainMsg(milliseconds: number) {
 		if ((milliseconds / (1000)) < 60) {
-			return `Casted seconds ago`
+			return `seconds ago`
 		} else if ((milliseconds / (1000*60)) < 60) {
 			const mins = Math.round(milliseconds / (1000*60))
-			return `Onchain ${mins} min${(mins==1) ? '' : 's'} ago`
+			return `${mins} min${(mins==1) ? '' : 's'} ago`
 		} else if ((milliseconds / (1000*60*60)) < 24) {
 			const hours = Math.round(milliseconds / (1000*60*60))
-			return `Onchain ${hours} hr${(hours==1) ? '' : 's'} ago`
+			return `${hours} hr${(hours==1) ? '' : 's'} ago`
 		} else if ((milliseconds / (1000*60*60*24)) < 30) {
 			const days = Math.round(milliseconds / (1000*60*60*24))
-			return `Onchain ${days} day${(days==1) ? '' : 's'} ago`
+			return `${days} day${(days==1) ? '' : 's'} ago`
 		} else if ((milliseconds / (1000*60*60*24*30)) < 6) {
 			const months = Math.round(milliseconds / (1000*60*60*24*30))
-			return `Onchain ${months} mo${(months==1) ? '' : 's'} ago`
+			return `${months} mo${(months==1) ? '' : 's'} ago`
 		} else {
-			return 'Onchain... a long time ago'
+			return '... a long time ago'
 		}
 	}
-	const onchainMsg = props.onchainTime ? createOnchainMsg(Date.now() - new Date(props.onchainTime).getTime()) : undefined
+	let isActiveOnchain: boolean = false
+	let onchainMsg: string = 'hmm... no base txns found'
+	if (props.onchainTime) {
+		const onchainMillisDiff = Date.now() - new Date(props.onchainTime).getTime()
+		isActiveOnchain = ((onchainMillisDiff) / (1000*60*60*24)) < 24
+		onchainMsg = createOnchainMsg(onchainMillisDiff)
+	} 
 
 	const castTooltip = (
 		<div>
@@ -66,9 +77,7 @@ export default function UserCard( props: {
 	)
 	const infoTooltip = (
 		<div>
-			<span className="block text-xs leading-none">fid: {'250'}</span>
-			<span className="block text-xs leading-none">{'250'} likes</span>
-			<span className="block text-xs leading-none">{'12'} recasts</span>
+			<span className="block text-xs leading-none">fid: {props.fid}</span>
 		</div>
 	) // placeholder data
 
@@ -91,9 +100,12 @@ export default function UserCard( props: {
 				{/* profile info */}
 				<div className="flex flex-col ml-1">
 					{/* display name */}
-					<h3 className="text-md leading-none">{'Display Name'}</h3>
+					<h3 className="text-md leading-none cursor-default font-extrabold">{props.displayName}</h3>
 					{/* username */}
-					<h3 className="text-sm leading-none">{props.username}</h3>
+					<div className="flex items-center">
+						<span className="text-sm leading-tight cursor-default">{props.username}</span>
+						{props.followsMe ? <span className="text-xs leading-none rounded-sm ml-1.5" style={{border: "1px solid black", padding: "1px"}}>follows you</span> : ''}
+					</div>
 					{/* online / active bar */}
 					<div className="flex items-center mb-0.5">
 						<IconContext.Provider value={{color: 'green', size:'8px'}}>
@@ -101,21 +113,35 @@ export default function UserCard( props: {
 								<span className=""><LuCircle /></span>
 							</Tooltip>
 						</IconContext.Provider>
-						<span className="text-xs leading-none ml-0.5 mr-1">online</span>
-						<IconContext.Provider value={{color: 'blue', size:'8px'}}>
-							<Tooltip content={baseTooltip} size="sm" radius="sm" closeDelay={10} offset={0} placement="bottom-start">
-								<span className=""><LuCircle /></span>
-							</Tooltip>
-						</IconContext.Provider>
-						<span className="text-xs leading-none ml-0.5">active onchain</span>
+						<span className="text-xs leading-none cursor-default ml-0.5 mr-1">online</span>
+						<a href={`https://onceupon.gg/${props.onchainHash}`} target="_blank" className="flex items-center cursor-default">
+							{isActiveOnchain ? (
+								<><IconContext.Provider value={{color: 'blue', size:'8px'}}>
+									<Tooltip content={baseTooltip} size="sm" radius="sm" closeDelay={10} offset={0} placement="bottom-start">
+										<span className=""><LuCircle /></span>
+									</Tooltip>
+								</IconContext.Provider>
+								<span className="text-xs leading-none cursor-default ml-0.5">active onchain</span></>
+							) : (
+								<><IconContext.Provider value={{color: 'red', size:'8px'}}>
+									<Tooltip content={baseTooltip} size="sm" radius="sm" closeDelay={10} offset={0} placement="bottom-start">
+										<span className=""><LuCircle /></span>
+									</Tooltip>
+								</IconContext.Provider>
+								<span className="text-xs leading-none cursor-default ml-0.5">not active onchain</span></>
+							)}
+						</a>
 					</div>
 				</div>
 			</div>
 			{/* user stats */}
-			<div className="flex flex-col">
+			<div className="flex">
 				<IconContext.Provider value={{size:'12px'}}>
+					<a href="https://app.converse.xyz/conversation" target="_blank">
+						<LuMessagesSquare />
+					</a>
 					<Tooltip content={infoTooltip} size="sm" radius="sm" closeDelay={10} offset={3} placement="right">
-						<span><LuInfo /></span>
+						<span className="ml-1 h-min"><LuInfo /></span>
 					</Tooltip>
 				</IconContext.Provider>
 			</div>
