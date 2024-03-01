@@ -8,15 +8,21 @@ import { LuHeart } from "react-icons/lu";
 import { LuRefreshCcw } from "react-icons/lu";
 import { LuMessagesSquare } from "react-icons/lu";
 import { LuLayers } from "react-icons/lu";
+import { MouseEvent } from "react";
+import { FilterSelection } from "@/app/page";
 
 export default function SideBar({ 
 	searchInput, 
-	onSearchChange 
+	onSearchChange,
+	filterInput,
+	onFilterChange,
 }: {
 	searchInput: string
 	onSearchChange: (inputVal: string)=>void
+	filterInput: FilterSelection
+	onFilterChange: (e: MouseEvent)=>void
 }) {
-	
+
 	return (
     <div className="fixed top-20 w-56 text-white mt-4">
 			{/* Search Box */}
@@ -39,7 +45,10 @@ export default function SideBar({
 					<LuUserCheck2 />
 					<button
 						type="button" 
-						className="cursor-pointer hover:text-lightblue active:text-darkblue ml-1">
+						name="followingButton"
+						value={"following"}
+						onClick={onFilterChange}
+						className={`cursor-pointer ml-1 ${(filterInput.followingFilter === "following" ? "text-blue-400" : "")}`}>
 						Following
 					</button>
 				</li>
@@ -47,7 +56,10 @@ export default function SideBar({
 					<LuUsers2 />
 					<button 
 						type="button" 
-						className="cursor-pointer hover:text-lightblue active:text-darkblue ml-1">
+						name="mutualButton"
+						value={"mutual"}
+						onClick={onFilterChange}
+						className={`cursor-pointer ml-1 ${(filterInput.followingFilter === "mutual" ? "text-blue-400" : "")}`}>
 						Mutual
 					</button>
 				</li>
@@ -55,7 +67,10 @@ export default function SideBar({
 					<LuUserPlus2 />
 					<button 
 						type="button" 
-						className="cursor-pointer hover:text-lightblue active:text-darkblue ml-1">
+						name="doesntFollowButton"
+						value={"not following"}
+						onClick={onFilterChange}
+						className={`cursor-pointer ml-1 ${(filterInput.followingFilter === "not following" ? "text-blue-400" : "")}`}>
 						{"Doesn't Follow Back"}
 					</button>
 				</li> 
@@ -63,16 +78,22 @@ export default function SideBar({
 				<li className="text-sm leading-none mb-1 flex items-center">
 					<LuMessagesSquare />
 					<button 
-						type="button" 
-						className="cursor-pointer hover:text-lightblue active:text-darkblue ml-1">
+						type="button"
+						name="isOnlineButton"
+						value={"isOnline"}
+						onClick={onFilterChange}
+						className={`cursor-pointer ml-1 ${(filterInput.filterIsOnline ? "text-blue-400" : "")}`}>
 						Currently online
 					</button>
 				</li> 
 				<li className="text-sm leading-none mb-1 flex items-center">
 					<LuLayers />
 					<button 
-						type="button" 
-						className="cursor-pointer hover:text-lightblue active:text-darkblue ml-1">
+						type="button"
+						name="isOnchainButton"
+						value={"isOnchain"}
+						onClick={onFilterChange}
+						className={`cursor-pointer ml-1 ${(filterInput.filterIsOnchain ? "text-blue-400" : "")}`}>
 						Active onchain
 					</button>
 				</li>

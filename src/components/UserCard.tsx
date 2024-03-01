@@ -79,7 +79,7 @@ export default function UserCard( props: {
 		<div>
 			<span className="block text-xs leading-none">fid: {props.fid}</span>
 		</div>
-	) // placeholder data
+	)
 
 	return (
 		<div className="bg-gray-200 rounded-md p-1.5 truncate flex justify-between">
