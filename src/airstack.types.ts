@@ -21,9 +21,20 @@ interface FollowingAddress {
 
 interface Social {
     dappName: string
+    profileDisplayName: string
     profileName: string
+    userId: string
     profileImageContentValue: ProfileImageContentValue
     updatedAt: string
+    followings: Followings
+}
+
+interface Followings {
+    Following: UserFollowing[]
+}
+
+interface UserFollowing {
+    followingProfileId: string
 }
 
 interface ProfileImageContentValue {
@@ -35,5 +46,6 @@ interface Image {
 }
 
 interface TokenTransfer {
-    blockTimestamp: string | null
+    blockTimestamp: string | undefined
+    transactionHash: string | undefined
 }

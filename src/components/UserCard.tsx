@@ -8,7 +8,7 @@ export default function UserCard( props: {
 		pfpUrl: string | undefined, 
 		username: string, 
 		castTime: Date, 
-		onchainTime: Date | null 
+		onchainTime: Date | undefined 
 	} ) {
 
 	function createCastMsg(milliseconds: number) {
