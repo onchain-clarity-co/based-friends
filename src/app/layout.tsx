@@ -10,7 +10,9 @@ const font = Roboto({ subsets: ["latin"], weight: '400' });
 export const metadata: Metadata = {
   title: "Based Friends",
   description: "Look who is online and onchain.",
-};
+  metadataBase: new URL("https://basedfriends.xyz"),
+  openGraph: {images:["sharing.jpg"]}
+  };
 
 export default function RootLayout({
   children,
