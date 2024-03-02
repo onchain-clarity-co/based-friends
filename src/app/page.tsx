@@ -38,7 +38,7 @@ function filterByParams(data: FormattedAirstackData[], query: string, filterSele
     })
   }
   // filter by search query
-  const searchInput = new RegExp(query)
+  const searchInput = new RegExp(query.toLowerCase())
   return filteredData.filter((user) => searchInput.test(user.username))
 }
 
@@ -101,12 +101,12 @@ export default function HomePage() {
   const results = filterByParams(data, searchInput, filterInput)
 
   return (
-    <main className="flex px-20">
+    <main className="flex px-2 md:px-20 flex-col md:flex-row">
       {/* side bar */}
       <SideBar searchInput={searchInput} onSearchChange={handleSearchChange} filterInput={filterInput} onFilterChange={handleFollowingFilterChange}/>
       
       {/* main body */}
-      <div className="w-full pl-2 ml-56">
+      <div className="w-full md:pl-2 md:ml-56">
         <FriendsList userList={results} />
       </div>
     </main>
