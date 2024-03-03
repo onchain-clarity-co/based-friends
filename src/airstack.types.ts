@@ -1,10 +1,7 @@
-export interface AirstackResponse {
-    data: Data
-}
-
-interface Data {
+export interface AirstackPage {
     SocialFollowings: SocialFollowings
 }
+
 
 interface SocialFollowings {
     Following: Following[]
