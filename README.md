@@ -1,3 +1,5 @@
-### Onchain Clarity
+### Based Friends
 
-Onchain Clarity is a next app that uses Farcaster to surface the onchain data of a person's social circle. This includes seeing your friends' popular NFTs, newest mints, and who stacks up with the most transactions, oldest wallets, biggest token balances. Onchain clarity makes Optimism multiplayer. Use Onchain Clarity to see who to follow or learn more about who you already do.
+![BasedFriendsClear](https://github.com/onchain-clarity-co/based-friends/assets/140857816/c67593a5-aa44-48b9-8410-4e8fd4495261)
+
+BasedFriends is a friends list that uses the Farcaster Social Graph to tell you who is online (Cast, Like, or Recast in the past 10 mins) and who is onchain (Base tx in the past 24 hours). Check it out at BasedFriends.xyz
